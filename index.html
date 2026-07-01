@@ -63,10 +63,10 @@
   .entry{animation:rise .26s ease both;}
   @keyframes rise{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
 
-  .question{margin:0;font-weight:400;line-height:1.15;color:var(--ink);}
+  .question{margin:0;font-weight:400;line-height:1.15;color:var(--ink);text-wrap:balance;}
   .quote{margin:0;font-weight:800;letter-spacing:-0.015em;line-height:1.13;color:var(--ink);}
   /* The quote always carries hanging quotation marks; -0.5em ~= the curly quote's width, tune if needed. */
-  .quote p{margin:0;quotes:"\201C" "\201D";text-indent:-0.5em;}
+  .quote p{margin:0;quotes:"\201C" "\201D";text-indent:-0.5em;text-wrap:balance;}
   .quote p::before{content:open-quote;}
   .quote p::after{content:close-quote;}
   .context{margin:14px 0 0;font-size:14px;line-height:1.5;color:var(--muted);}
@@ -95,7 +95,8 @@
   .mode-quote .quote{font-size:clamp(24px, 4.6vw, 32px);}
 
   /* <strong> = underline emphasis (keeps the surrounding weight) rather than extra boldness.
-     Native skip-ink lets the underline duck around the descenders. */
+     Continuous line + a paper-colored halo knocks it out behind the descenders. This is
+     used instead of text-decoration-skip-ink because Safari's support for that is unreliable. */
   .question strong, .question b,
   .quote strong, .quote b,
   .context strong, .context b,
@@ -104,7 +105,8 @@
     text-decoration:underline;
     text-decoration-thickness:.055em;
     text-underline-offset:.14em;
-    text-decoration-skip-ink:auto;
+    text-decoration-skip-ink:none;
+    text-shadow:.03em 0 var(--paper), -.03em 0 var(--paper), .06em 0 var(--paper), -.06em 0 var(--paper);
   }
   .question em, .question i,
   .quote em, .quote i,
