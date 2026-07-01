@@ -152,7 +152,17 @@
     text-decoration:none;border-bottom:1px solid var(--ink);
   }
   .footer-links a:hover,.footer-links button:hover{color:var(--muted);border-bottom-color:var(--muted);}
-  .colophon{font-size:11px;font-weight:500;letter-spacing:0.06em;color:var(--label);margin:0;}
+  /* Index — full directory of every question, below the fold */
+  .index{border-top:1px solid var(--hair);padding-block:clamp(28px,6vh,56px);}
+  .index-label{display:block;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--label);margin:0 0 18px;}
+  .index-list{list-style:none;margin:0;padding:0;}
+  .index-item{border-top:1px solid var(--hair);}
+  .index-item:first-child{border-top:0;}
+  .index-link{display:flex;gap:16px;align-items:baseline;padding:13px 0;color:var(--ink);text-decoration:none;line-height:1.4;}
+  .index-num{flex:0 0 auto;min-width:2.5ch;text-align:right;font-size:12px;font-weight:700;color:var(--label);font-variant-numeric:tabular-nums;letter-spacing:0.02em;}
+  .index-q{flex:1 1 auto;font-size:16px;border-bottom:1px solid transparent;transition:border-color .15s ease;}
+  .index-link:hover .index-q{border-bottom-color:var(--ink);}
+  .index-link:hover .index-num{color:var(--ink);}
 
   /* Error / empty states */
   .notice{max-width:52ch;}
@@ -218,6 +228,13 @@
     </nav>
   </div>
 
+  <section class="index" aria-labelledby="index-label">
+    <div class="wrap">
+      <span class="index-label" id="index-label">All statements</span>
+      <ol class="index-list" id="index-list"></ol>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="wrap">
       <h2 class="footer-head">About this project</h2>
@@ -227,7 +244,6 @@
         <a href="mailto:corrections@realtrump.info">Submit a correction</a>
         <a href="quotes.json">Source data</a>
       </div>
-      <p class="colophon" id="colophon"></p>
     </div>
   </footer>
 
@@ -407,9 +423,26 @@
     });
   }
 
-  function setColophon(){
-    var el = document.getElementById('colophon');
-    if(el) el.textContent = ENTRIES.length + ' statements \u00b7 sources linked \u00b7 nothing paraphrased';
+  function buildIndex(){
+    var el = document.getElementById('index-list');
+    if(!el) return;
+    el.innerHTML = ENTRIES.map(function(e, i){
+      return '<li class="index-item">'
+        + '<a class="index-link" href="?q=' + encodeURIComponent(e.id) + '">'
+        + '<span class="index-num" aria-hidden="true">' + (i + 1) + '</span>'
+        + '<span class="index-q">' + richText(e.question) + '</span>'
+        + '</a></li>';
+    }).join('');
+    Array.prototype.forEach.call(el.querySelectorAll('.index-link'), function(a){
+      a.addEventListener('click', function(ev){
+        // Let modified clicks (open in new tab/window) behave as normal links.
+        if(ev.button || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+        ev.preventDefault();
+        var id = decodeURIComponent(a.getAttribute('href').replace(/^\?q=/, ''));
+        var entry = ENTRIES.filter(function(x){ return x.id === id; })[0];
+        if(entry){ show(entry); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      });
+    });
   }
 
   function showNotice(html){
@@ -433,7 +466,7 @@
       return;
     }
     buildChips();
-    setColophon();
+    buildIndex();
 
     var params = new URLSearchParams(location.search);
     var qid = params.get('q');
