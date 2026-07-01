@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "id": "housing-prices",
+    "question": "What does Trump say about home prices?",
+    "quote": "I want to drive housing prices up for people who own homes.",
+    "context": "At the World Economic Forum in Davos, January 2026; he paired it with a call for lower mortgage rates to help new buyers.",
+    "source_url": "https://www.pbs.org/newshour/politics/watch-trump-says-he-wants-to-drive-housing-prices-up-not-down",
+    "source_name": "PBS NewsHour",
+    "date": "2026-01-29",
+    "tags": [
+      "housing",
+      "economy"
+    ],
+    "emphasis": "question"
+  },
+  {
+    "id": "tariffs-beautiful-word",
+    "question": "What does Trump think of tariffs?",
+    "quote": "I always say 'tariffs' is the most beautiful word to me in the dictionary.",
+    "context": "At a rally hours after his second inauguration, January 2025, arguing tariffs would make the country rich.",
+    "source_url": "https://www.npr.org/2025/04/09/nx-s1-5355661/tariffs-history-meaning",
+    "source_name": "NPR",
+    "date": "2025-01-20",
+    "tags": [
+      "trade",
+      "economy"
+    ]
+  },
+  {
+    "id": "energy-drill",
+    "question": "What is Trump's energy policy?",
+    "quote": "We will drill, baby, drill.",
+    "context": "From his second inaugural address, January 2025, as he declared a national energy emergency.",
+    "source_url": "https://www.okenergytoday.com/2025/01/trump-uses-inauguration-speech-to-promote-drill-baby-drill/",
+    "source_name": "Oklahoma Energy Today",
+    "date": "2025-01-20",
+    "tags": [
+      "energy",
+      "economy"
+    ]
+  },
+  {
+    "id": "nato-delinquent",
+    "question": "What did Trump say about defending NATO allies?",
+    "quote": "I would encourage them to do whatever the hell they want.",
+    "context": "At a February 2024 rally in Conway, S.C., recounting telling a NATO ally he deemed 'delinquent' that he would not protect it from Russia.",
+    "source_url": "https://www.npr.org/2024/02/11/1230658309/trump-would-encourage-russia-to-attack-nato-allies-who-dont-pay-bills",
+    "source_name": "NPR",
+    "date": "2024-02-10",
+    "tags": [
+      "foreign-policy"
+    ]
+  },
+  {
+    "id": "immigration-deportation",
+    "question": "What has Trump promised on immigration?",
+    "quote": "We will begin the largest deportation operation in the history of our country.",
+    "context": "A signature 2024 campaign pledge, repeated at the Republican National Convention and in interviews.",
+    "source_url": "https://www.cbsnews.com/news/trump-mass-deportation-plan-cost-consequences-60-minutes-transcript/",
+    "source_name": "CBS News",
+    "date": "2024-10-21",
+    "tags": [
+      "immigration"
+    ],
+    "emphasis": "question"
+  },
+  {
+    "id": "healthcare-concepts",
+    "question": "What is Trump's plan to replace the Affordable Care Act?",
+    "quote": "I have concepts of a plan.",
+    "context": "Answering a debate question in September 2024 about whether he had a plan to replace the ACA.",
+    "source_url": "https://thehill.com/policy/healthcare/4873254-trump-debate-obamacare-replacement/",
+    "source_name": "The Hill",
+    "date": "2024-09-10",
+    "tags": [
+      "healthcare"
+    ]
+  },
+  {
+    "id": "iran-financial-situation",
+    "question": "Does Trump weigh Americans' finances when negotiating with Iran?",
+    "quote": "I don't think about Americans' financial situation.",
+    "context": "Asked on the White House lawn on May 12, 2026 whether Americans' financial strain during the Iran war was motivating a deal, he said it wasn't — his sole focus was keeping Iran from a nuclear weapon.",
+    "source_url": "https://www.c-span.org/clip/white-house-event/president-trump-i-dont-think-about-americans-financial-situation-amid-iran-talks/5200218",
+    "source_name": "C-SPAN",
+    "date": "2026-05-12",
+    "tags": [
+      "economy",
+      "foreign-policy"
+    ]
+  }
+]
