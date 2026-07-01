@@ -24,7 +24,14 @@
     "tags": [
       "trade",
       "economy"
-    ]
+    ],
+    "note": {
+      "label": "The cost",
+      "text": "Trump insists other countries pay the tariffs. But the New York Fed found U.S. importers bore about 94% of the cost in early 2025 — part of roughly $287 billion the Treasury collected in tariffs that year.",
+      "source_url": "https://www.cbsnews.com/news/trump-tariffs-consumers-business-nearly-90-percent-new-york-federal-reserve/",
+      "source_name": "CBS News / New York Fed",
+      "date": "2026-02-18"
+    }
   },
   {
     "id": "energy-drill",
