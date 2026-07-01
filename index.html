@@ -402,15 +402,39 @@
       + '</aside>';
   }
 
+  // Append a Scroll-To-Text-Fragment directive (#:~:text=) so the source page
+  // scrolls to and highlights the quoted passage on arrival. Long quotes use a
+  // start,end range (first/last few words) to stay short and robust; browsers
+  // without support simply ignore the directive.
+  function withTextFragment(url, quote){
+    if(!isHttp(url)) return url;
+    var t = String(quote == null ? '' : quote)
+      .replace(/<\/?[a-z][^>]*>/gi, ' ')                              // strip inline markup
+      .replace(/\s+/g, ' ')
+      .replace(/^[\s"'‘’“”….\-]+/, '')       // trim wrapping quotes/ellipses
+      .replace(/[\s"'‘’“”….\-]+$/, '')
+      .trim();
+    if(!t) return url;
+    // Percent-encode text, additionally escaping '-' and ',' (fragment delimiters).
+    var enc = function(s){
+      return encodeURIComponent(s).replace(/[-,]/g, function(c){ return '%' + c.charCodeAt(0).toString(16).toUpperCase(); });
+    };
+    var words = t.split(' ');
+    var frag = words.length <= 10
+      ? 'text=' + enc(t)
+      : 'text=' + enc(words.slice(0, 6).join(' ')) + ',' + enc(words.slice(-6).join(' '));
+    return url + (url.indexOf('#') === -1 ? '#' : '') + ':~:' + frag;
+  }
+
   function entryHTML(e){
     var mode = emphasisOf(e);
     var src = sourceLine(e.source_name || 'Unknown', e.source_url, e.date);
     var ctx = e.context ? '<p class="context">' + richText(e.context) + '</p>' : '';
     var notes = notesOf(e).map(noteHTML).join('');
     var quoteBody = '<p>' + richText(e.quote) + '</p>';
-    // The quote itself links through to the primary source when we have one.
+    // The quote links through to the primary source, highlighting the passage there.
     if(isHttp(e.source_url)){
-      quoteBody = '<a class="quote-link" href="' + esc(e.source_url) + '" target="_blank" rel="noopener noreferrer">' + quoteBody + '</a>';
+      quoteBody = '<a class="quote-link" href="' + esc(withTextFragment(e.source_url, e.quote)) + '" target="_blank" rel="noopener noreferrer">' + quoteBody + '</a>';
     }
     return '<article class="entry mode-' + mode + '">'
       + '<h1 class="question">' + richText(e.question) + '</h1>'
