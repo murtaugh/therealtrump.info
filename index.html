@@ -424,12 +424,14 @@
     try { history.replaceState(null, '', url); } catch(_){}
   }
 
-  function show(e){
+  function show(e, keepURL){
     if(!e){ return; }
     current = e;
     recordEl.querySelector('.wrap').innerHTML = entryHTML(e);
     document.title = e.question + ' \u2014 In his words.';
-    syncURL(e);
+    // On first load we leave the URL as-is (a bare landing stays clean); the URL
+    // only starts tracking ?q= once the visitor changes the quote.
+    if(!keepURL) syncURL(e);
   }
 
   function reflectChips(){
@@ -522,7 +524,7 @@
     var entry = null;
     if(qid && navType() !== 'reload'){ entry = ENTRIES.filter(function(e){ return e.id === qid; })[0] || null; }
     if(!entry) entry = pickRandom();
-    show(entry);
+    show(entry, true);
 
     document.getElementById('random').addEventListener('click', function(){ show(pickRandom()); });
 
