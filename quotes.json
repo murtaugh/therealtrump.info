@@ -75,7 +75,7 @@
   {
     "id": "immigration-poisoning-blood",
     "question": "What does Trump say about immigrants?",
-    "quote": "They're poisoning the blood of our country.",
+    "quote": "They're <strong>poisoning the blood</strong> of our country.",
     "context": "At a December 2023 rally in Durham, NH",
     "source_url": "https://www.c-span.org/clip/campaign-2024/donald-trump-on-illegal-immigrants-poisoning-the-blood-of-our-country/5098439",
     "source_name": "C-SPAN",
