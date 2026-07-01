@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verify &mdash; In his words.</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=archivo:300,400,500,700,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --muted:#555555;
+    --label:#999999;
+    --hair:#d7d7d1;
+    --paper:#ffffff;
+    --ok:#0a7d33;
+    --pad-x:clamp(20px, 5vw, 48px);
+    --pad-y:clamp(20px, 4vh, 40px);
+    --maxw:820px;
+    --font:'Archivo', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--font);font-weight:400;line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  .wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad-x);}
+
+  header{padding-top:var(--pad-y);}
+  .masthead{
+    font-size:22px;font-weight:800;letter-spacing:-0.01em;line-height:1;
+    padding-bottom:16px;border-bottom:2px solid var(--ink);margin:0;
+  }
+  .masthead a{color:inherit;text-decoration:none;}
+  .lede{font-size:14px;color:var(--muted);margin:14px 0 0;max-width:60ch;}
+  .lede a{color:var(--ink);}
+  .count{font-weight:700;font-variant-numeric:tabular-nums;}
+
+  main{padding-block:24px var(--pad-y);}
+
+  .row{border-top:1px solid var(--hair);padding:18px 0;}
+  .row:first-child{border-top:0;}
+  .row-head{display:flex;gap:14px;align-items:baseline;}
+  .num{flex:0 0 auto;min-width:2.5ch;text-align:right;font-size:12px;font-weight:700;color:var(--label);font-variant-numeric:tabular-nums;padding-top:3px;}
+  .body{flex:1 1 auto;min-width:0;}
+
+  .q{font-size:13px;font-weight:700;color:var(--muted);margin:0 0 6px;}
+  .quote{font-size:17px;font-weight:700;line-height:1.3;margin:0 0 4px;}
+  .quote::before{content:"\201C";}
+  .quote::after{content:"\201D";}
+  .context{font-size:13px;color:var(--muted);margin:6px 0 0;}
+  .id{font-size:11px;color:var(--label);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+
+  .links{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;}
+  .links li{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;}
+  .kind{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--label);min-width:8ch;}
+  .kind.note-kind{color:#8a6d00;}
+  .link{font-size:14px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--hair);text-underline-offset:2px;word-break:break-word;}
+  .link:hover{text-decoration-color:var(--ink);}
+  .link.visited-yes{color:var(--muted);}
+  .link:visited{color:var(--muted);}
+  .meta{font-size:12px;color:var(--muted);}
+  .frag{font-size:11px;color:var(--label);}
+  .nolink{font-size:13px;color:#b00020;font-weight:600;}
+
+  .note-text{font-size:13px;color:var(--muted);margin:2px 0 0;max-width:70ch;}
+
+  .notice{max-width:52ch;padding-block:40px;}
+  .notice code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.9em;background:#f1f0ea;padding:2px 6px;border-radius:3px;}
+
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:2px;}
+
+  @media (max-width:560px){
+    .kind{min-width:0;}
+    .row-head{gap:10px;}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="masthead"><a href="/">In his words.</a></p>
+      <p class="lede">
+        Source-check list &mdash; every statement in <a href="quotes.json">quotes.json</a>, with each
+        source link laid out to click straight through. Quote links jump to and highlight the passage on
+        the source page. <span class="count" id="count"></span>
+      </p>
+    </div>
+  </header>
+
+  <main id="list" aria-live="polite">
+    <div class="wrap"><p class="notice">Loading&hellip;</p></div>
+  </main>
+
+<script>
+(function(){
+  "use strict";
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function isHttp(u){ return /^https?:\/\//i.test(String(u || '')); }
+
+  // Strip the whitelisted inline markup (<strong>/<em>/<b>/<i>) to plain text.
+  function plain(s){
+    return String(s == null ? '' : s).replace(/<\/?[a-z][^>]*>/gi, '');
+  }
+
+  function formatDate(iso){
+    if(!iso) return '';
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+    if(!m) return esc(iso);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return (+m[3]) + ' ' + months[(+m[2]) - 1] + ' ' + m[1];
+  }
+
+  // Same Scroll-To-Text-Fragment builder the main page uses, so verifiers land on
+  // the exact quoted passage.
+  function withTextFragment(url, quote){
+    if(!isHttp(url)) return url;
+    var t = String(quote == null ? '' : quote)
+      .replace(/<\/?[a-z][^>]*>/gi, '')
+      .replace(/\s+/g, ' ')
+      .replace(/^[\s"'‘’“”….\-]+/, '')
+      .replace(/[\s"'‘’“”….\-]+$/, '')
+      .trim();
+    if(!t) return url;
+    var enc = function(s){
+      return encodeURIComponent(s).replace(/[-,]/g, function(c){ return '%' + c.charCodeAt(0).toString(16).toUpperCase(); });
+    };
+    var words = t.split(' ');
+    var frag = words.length <= 10
+      ? 'text=' + enc(t)
+      : 'text=' + enc(words.slice(0, 6).join(' ')) + ',' + enc(words.slice(-6).join(' '));
+    return url + (url.indexOf('#') === -1 ? '#' : '') + ':~:' + frag;
+  }
+
+  function notesOf(e){
+    var n = e.note;
+    if(!n) return [];
+    if(!Array.isArray(n)) n = [n];
+    return n.map(function(x){ return (typeof x === 'string') ? { text: x } : x; })
+            .filter(function(x){ return x && x.text; });
+  }
+
+  // One link line: a labeled, clickable source with outlet/date, or a "missing" flag.
+  function linkLine(kind, isNote, url, name, date, href){
+    var target = href || url;
+    var meta = (name ? esc(name) : '') + (date ? (name ? ' &middot; ' : '') + formatDate(date) : '');
+    var cls = 'kind' + (isNote ? ' note-kind' : '');
+    if(!isHttp(target)){
+      return '<li><span class="' + cls + '">' + esc(kind) + '</span>'
+        + '<span class="nolink">no source URL</span>'
+        + (meta ? ' <span class="meta">' + meta + '</span>' : '') + '</li>';
+    }
+    return '<li><span class="' + cls + '">' + esc(kind) + '</span>'
+      + '<a class="link" href="' + esc(target) + '" target="_blank" rel="noopener noreferrer">' + esc(target) + '</a>'
+      + (meta ? ' <span class="meta">' + meta + '</span>' : '') + '</li>';
+  }
+
+  function rowHTML(e, i){
+    var links = [];
+    // Primary source, deep-linked to the highlighted passage.
+    links.push(linkLine('Quote', false, e.source_url, e.source_name, e.date, withTextFragment(e.source_url, e.quote)));
+
+    var notes = notesOf(e);
+    var noteBlocks = notes.map(function(n, k){
+      var label = notes.length > 1 ? ('Note ' + (k + 1)) : 'Note';
+      var line = linkLine(label, true, n.source_url, n.source_name, n.date, n.source_url);
+      var text = n.text ? '<p class="note-text">' + esc(plain(n.text)) + '</p>' : '';
+      return line + (text ? '<li style="margin-top:-2px">' + text + '</li>' : '');
+    }).join('');
+
+    var ctx = e.context ? '<p class="context">' + esc(plain(e.context)) + '</p>' : '';
+
+    return '<div class="row" id="' + esc(e.id) + '">'
+      + '<div class="row-head">'
+      +   '<span class="num">' + (i + 1) + '</span>'
+      +   '<div class="body">'
+      +     '<p class="q">' + esc(plain(e.question || '')) + ' <span class="id">' + esc(e.id) + '</span></p>'
+      +     '<p class="quote">' + esc(plain(e.quote || '')) + '</p>'
+      +     ctx
+      +     '<ul class="links">' + links.join('') + noteBlocks + '</ul>'
+      +   '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function render(entries){
+    var listEl = document.getElementById('list');
+    var countEl = document.getElementById('count');
+    var links = 0;
+    entries.forEach(function(e){
+      if(isHttp(e.source_url)) links++;
+      notesOf(e).forEach(function(n){ if(isHttp(n.source_url)) links++; });
+    });
+    countEl.textContent = entries.length + ' statements · ' + links + ' source links.';
+    listEl.innerHTML = '<div class="wrap">' + entries.map(rowHTML).join('') + '</div>';
+  }
+
+  function showNotice(html){
+    document.getElementById('list').innerHTML = '<div class="wrap"><div class="notice">' + html + '</div></div>';
+  }
+
+  fetch('quotes.json', { cache: 'no-cache' })
+    .then(function(res){ if(!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(data){
+      var entries = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : []);
+      if(!entries.length){ showNotice('<p>No statements in <code>quotes.json</code>.</p>'); return; }
+      render(entries);
+    })
+    .catch(function(err){
+      showNotice(
+        '<p>Couldn’t load <code>quotes.json</code>. Serve the folder over HTTP '
+        + '(e.g. <code>python3 -m http.server</code>) and reload.</p>'
+        + '<p style="font-size:13px;color:#999">' + esc(err && err.message ? err.message : err) + '</p>'
+      );
+    });
+})();
+</script>
+</body>
+</html>
