@@ -270,10 +270,9 @@
     <div class="wrap">
       <h2 class="footer-head">About this project</h2>
       <p class="footer-body">Every entry is a verbatim quote linked to its original source &mdash; a news report, transcript, or official record. Nothing here is paraphrased or summarized.</p>
-      <p class="footer-body">Claude helped build it, but this is a project from <a href="https://timmurtaugh.com">@murtaugh</a>. (Yes &mdash; I love and use em dashes, I&rsquo;m not going to let AI bully me off them.)</p>
+      <p class="footer-body">Claude helped build it, but this is a project from <a href="https://timmurtaugh.com">@murtaugh</a>. (Yes, I love and use em dashes &mdash; I&rsquo;m not going to let AI bully me off them.)</p>
       <div class="footer-links">
-        <button type="button" id="browse-all">Browse all</button>
-        <a href="mailto:corrections@realtrump.info">Submit a correction</a>
+        <a href="https://mastodon.social/@murtaugh" target="_blank" rel="noopener noreferrer">Submit a correction</a>
         <a href="quotes.json">Source data</a>
       </div>
     </div>
@@ -520,12 +519,6 @@
     show(entry);
 
     document.getElementById('random').addEventListener('click', function(){ show(pickRandom()); });
-
-    document.getElementById('browse-all').addEventListener('click', function(){
-      setTag(null);
-      show(pickRandom());
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
     document.getElementById('home').addEventListener('click', function(ev){
       ev.preventDefault();
