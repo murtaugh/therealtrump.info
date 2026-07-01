@@ -409,7 +409,7 @@
   function withTextFragment(url, quote){
     if(!isHttp(url)) return url;
     var t = String(quote == null ? '' : quote)
-      .replace(/<\/?[a-z][^>]*>/gi, ' ')                              // strip inline markup
+      .replace(/<\/?[a-z][^>]*>/gi, '')                               // strip inline markup (no added space)
       .replace(/\s+/g, ' ')
       .replace(/^[\s"'‘’“”….\-]+/, '')       // trim wrapping quotes/ellipses
       .replace(/[\s"'‘’“”….\-]+$/, '')
