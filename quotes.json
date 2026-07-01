@@ -273,5 +273,23 @@
       "source_name": "Australian Government",
       "date": "2025-11-03"
     }
+  },
+  {
+    "id": "profit-presidency",
+    "question": "Does Trump profit from being president?",
+    "quote": "Being president probably cost me money if you really look.",
+    "context": "Interviewed on Meet the Press in May 2025, Trump cast the office as a financial sacrifice, adding that he donates his presidential salary.",
+    "source_url": "https://www.nbcnews.com/politics/trump-administration/read-full-transcript-president-donald-trump-interviewed-meet-press-mod-rcna203514",
+    "source_name": "NBC News, Meet the Press",
+    "date": "2025-05-04",
+    "tags": ["economy"],
+    "emphasis": "quote",
+    "note": {
+      "label": "Instead",
+      "text": "Forbes estimates his net worth at about $6.5 billion — up roughly $1.4 billion in the past year alone, which it attributes to \"leveraging the presidency for profit,\" largely through the cryptocurrency ventures he launched around his second inauguration.",
+      "source_url": "https://www.forbes.com/sites/danalexander/article/the-definitive-networth-of-donaldtrump/",
+      "source_name": "Forbes",
+      "date": "2026-03-25"
+    }
   }
 ]
