@@ -240,7 +240,7 @@
   <div class="hero">
     <header class="site-header">
       <div class="wrap">
-        <p class="masthead"><a href="?" id="home">In his words.</a></p>
+        <p class="masthead"><a href="/" id="home">In his words.</a></p>
       </div>
     </header>
 
@@ -531,10 +531,8 @@
 
     document.getElementById('random').addEventListener('click', shuffleAll);
 
-    document.getElementById('home').addEventListener('click', function(ev){
-      ev.preventDefault();
-      shuffleAll();
-    });
+    // "In his words." is a plain link to the root (no query string) — navigating
+    // there loads a fresh random quote with a clean URL.
 
     document.addEventListener('keydown', function(ev){
       var t = ev.target && ev.target.tagName;
