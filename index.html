@@ -424,23 +424,26 @@
     if(!e){ return; }
     current = e;
     recordEl.querySelector('.wrap').innerHTML = entryHTML(e);
+    reflectChips();
     document.title = e.question + ' \u2014 In his words.';
     // On first load we leave the URL as-is (a bare landing stays clean); the URL
     // only starts tracking ?q= once the visitor changes the quote.
     if(!keepURL) syncURL(e);
   }
 
+  // Highlight the chips whose topics the rendered quote actually carries \u2014 driven
+  // by the shown entry's own tags, not the URL/active filter.
   function reflectChips(){
+    var tags = current ? tagsOf(current) : [];
     var btns = chipsEl.querySelectorAll('.chip');
     for(var i = 0; i < btns.length; i++){
-      var on = btns[i].getAttribute('data-tag') === activeTag;
+      var on = tags.indexOf(btns[i].getAttribute('data-tag')) !== -1;
       btns[i].classList.toggle('on', on);
       btns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
     }
   }
   function setTag(tag){
     activeTag = tag || null;
-    reflectChips();
   }
   function onTagClick(tag){
     // Each tag is an action button: always draw a fresh random quote carrying
