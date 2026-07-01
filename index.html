@@ -129,8 +129,7 @@
      masthead rule) rather than the full padded wrap. */
   .filter-inner{border-top:1px solid var(--hair);padding-top:16px;}
   .filter-label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:11px;}
-  .filter-row{display:flex;align-items:flex-end;}
-  .chips{flex:1 1 auto;min-width:0;display:flex;flex-wrap:wrap;gap:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
 
   .chip{
     font-family:var(--font);font-size:12px;font-weight:500;
@@ -141,16 +140,16 @@
   .chip:hover{border-color:var(--ink);}
   .chip.on{background:var(--ink);border-color:var(--ink);color:#fff;}
 
-  /* Random: same box size as a chip, darker border + glyph so it reads as an action.
-     Locked to the lower-right corner; bottom-aligned so it stays put as chips wrap. */
+  /* Random is the primary action: it leads the block as a solid (filled) button,
+     above the secondary topic chips. Same box size as a chip. */
   .rnd{
-    flex:0 0 auto;margin-left:32px;
+    display:inline-flex;align-items:center;margin:0 0 18px;
     font-family:var(--font);font-size:12px;font-weight:700;
     padding:5px 11px;border:1px solid var(--ink);border-radius:4px;
-    color:var(--ink);background:var(--paper);cursor:pointer;white-space:nowrap;
+    color:#fff;background:var(--ink);cursor:pointer;white-space:nowrap;
     transition:background .15s ease,color .15s ease;
   }
-  .rnd:hover{background:var(--ink);color:#fff;}
+  .rnd:hover{background:var(--paper);color:var(--ink);}
   .rnd .gly{margin-right:5px;}
 
   /* Footer — below the hero, scrolls into view normally */
@@ -193,8 +192,7 @@
     .mode-question .question,.mode-quote .quote{font-size:22px;}
     .mode-question .quote{font-size:16px;}
     .mode-quote .question{font-size:14px;}
-    .filter-row{flex-direction:column;align-items:stretch;}
-    .rnd{margin-left:0;margin-top:12px;width:100%;text-align:center;}
+    .rnd{width:100%;justify-content:center;}
   }
 
   /* Scale up on large screens: bigger type, but keep the column narrow so lines stay short */
@@ -250,11 +248,9 @@
     <nav class="filter-bar" aria-label="Random quote by topic and shuffle">
       <div class="wrap">
         <div class="filter-inner">
+          <button class="rnd" id="random" type="button"><span class="gly" aria-hidden="true">&#8635;</span>Random</button>
           <span class="filter-label" id="filter-label">Random by topic</span>
-          <div class="filter-row">
-            <div class="chips" id="chips" role="group" aria-label="Topics"></div>
-            <button class="rnd" id="random" type="button"><span class="gly" aria-hidden="true">&#8635;</span>Random</button>
-          </div>
+          <div class="chips" id="chips" role="group" aria-label="Topics"></div>
         </div>
       </div>
     </nav>
