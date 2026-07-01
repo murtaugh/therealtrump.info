@@ -86,6 +86,7 @@
     "tags": [
       "healthcare"
     ],
+    "emphasis": "question",
     "note": {
       "label": "Since then",
       "text": "The concepts never became a plan. Instead, the Republican-led Congress let the ACA's enhanced premium tax credits lapse at the end of 2025 without passing any replacement, causing average premiums to more than double — up roughly 114%, about $1,016 a year. Marketplace enrollment is projected to fall from 22.3 million in 2025 to about 17.5 million in 2026, and a KFF survey found that 9% of 2025 enrollees had already become uninsured.",
@@ -116,6 +117,7 @@
     "source_name": "CNN",
     "date": "2022-12-03",
     "tags": ["elections"],
+    "emphasis": "question",
     "note": {
       "text": "He later denied he meant to \u201cterminate\u201d the Constitution, calling that framing \u201cdisinformation\u201d \u2014 but the verbatim post reads as quoted.",
       "source_url": "https://www.snopes.com/fact-check/trump-termination-us-constitution/",
@@ -141,6 +143,7 @@
     "source_url": "https://www.cnn.com/2018/03/03/politics/trump-maralago-remarks/index.html",
     "source_name": "CNN",
     "date": "2018-03-03",
-    "tags": ["foreign-policy"]
+    "tags": ["foreign-policy"],
+    "emphasis": "question"
   }
 ]
