@@ -10,7 +10,7 @@
 <meta property="og:description" content="A verbatim, sourced record — one statement at a time, each linked to its original source.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-<link href="https://fonts.bunny.net/css?family=archivo:400,500,700,800&display=swap" rel="stylesheet">
+<link href="https://fonts.bunny.net/css?family=archivo:400,500,700,800,900&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#111111;
@@ -23,7 +23,7 @@
     --paper:#ffffff;
     --pad-x:clamp(20px, 5vw, 48px);
     --pad-y:clamp(20px, 4vh, 40px);
-    --maxw:820px;
+    --maxw:680px;
     --font:'Archivo', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
   *{box-sizing:border-box;}
@@ -77,16 +77,25 @@
 
   /* Emphasis: QUESTION leads — big headline, quote as lede under it */
   .mode-question .question{font-size:clamp(24px, 4.6vw, 32px);line-height:1.1;letter-spacing:-0.015em;margin-bottom:18px;}
-  .mode-question .quote{font-size:clamp(17px, 2.4vw, 19px);line-height:1.55;border-left:4px solid var(--ink);padding-left:16px;}
+  .mode-question .quote{font-size:clamp(17px, 2.4vw, 19px);line-height:1.55;border-left:4px solid var(--ink);padding-left:16px;max-width:54ch;}
 
   /* Emphasis: QUOTE leads — small standfirst question, quote goes big */
-  .mode-quote .question{font-size:15px;font-weight:500;line-height:1.4;color:var(--muted);margin-bottom:14px;}
+  .mode-quote .question{font-size:15px;font-weight:500;line-height:1.4;color:var(--muted);margin-bottom:14px;max-width:54ch;}
   .mode-quote .quote{font-size:clamp(24px, 4.6vw, 32px);line-height:1.13;letter-spacing:-0.015em;font-weight:800;color:var(--ink);}
   /* Hang the opening quote mark into the margin so the text aligns flush left.
      -0.5em ~= width of the curly double-quote in Archivo; tune if needed. */
   .mode-quote .quote p{quotes:"\201C" "\201D";text-indent:-0.5em;}
   .mode-quote .quote p::before{content:open-quote;}
   .mode-quote .quote p::after{content:close-quote;}
+
+  /* Inline emphasis inside the record text. <strong> uses Archivo's heaviest cut (900)
+     so it reads bolder even against the already-bold quote. */
+  .question strong, .question b,
+  .quote strong, .quote b,
+  .context strong, .context b{font-weight:900;}
+  .question em, .question i,
+  .quote em, .quote i,
+  .context em, .context i{font-style:italic;}
 
   /* Filter bar pinned to the bottom of the hero */
   .filter-bar{flex:0 0 auto;padding-bottom:var(--pad-y);padding-top:16px;}
@@ -146,21 +155,20 @@
     .rnd{margin-left:0;margin-top:12px;width:100%;text-align:center;}
   }
 
-  /* Scale up on large screens: wider column, bigger type */
+  /* Scale up on large screens: bigger type, but keep the column narrow so lines stay short */
   @media (min-width:1200px){
-    :root{--maxw:1040px;--pad-x:clamp(32px,5vw,72px);}
+    :root{--pad-x:clamp(32px,5vw,72px);}
     .masthead{font-size:26px;}
-    .mode-question .question,.mode-quote .quote{font-size:clamp(34px,3.2vw,48px);}
-    .mode-question .quote{font-size:clamp(19px,1.7vw,22px);}
+    .mode-question .question,.mode-quote .quote{font-size:clamp(32px,3.2vw,44px);}
+    .mode-question .quote{font-size:clamp(19px,1.7vw,21px);}
     .mode-quote .question{font-size:17px;}
     .context{font-size:15px;}
     .source-link{font-size:13px;}
   }
   @media (min-width:1600px){
-    :root{--maxw:1200px;}
     .masthead{font-size:30px;}
-    .mode-question .question,.mode-quote .quote{font-size:clamp(48px,3vw,58px);}
-    .mode-question .quote{font-size:24px;}
+    .mode-question .question,.mode-quote .quote{font-size:clamp(40px,2.6vw,48px);}
+    .mode-question .quote{font-size:22px;}
     .mode-quote .question{font-size:19px;}
   }
 
@@ -246,6 +254,13 @@
   }
   function isHttp(u){ return /^https?:\/\//i.test(String(u || '')); }
 
+  // Escape everything, then re-allow a small whitelist of inline emphasis tags.
+  // Safe: only bare <strong>/<em>/<b>/<i> (and their closers) are restored — any tag
+  // with attributes stays escaped, so no markup or handlers can slip through.
+  function richText(s){
+    return esc(s).replace(/&lt;(\/?)(strong|b|em|i)&gt;/gi, '<$1$2>');
+  }
+
   function formatDate(iso){
     if(!iso) return '';
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
@@ -286,10 +301,10 @@
     var src = isHttp(e.source_url)
       ? '<a class="source-link" href="' + esc(e.source_url) + '" target="_blank" rel="noopener noreferrer">' + inner + '</a>'
       : '<span class="source-link">' + inner + '</span>';
-    var ctx = e.context ? '<p class="context">' + esc(e.context) + '</p>' : '';
+    var ctx = e.context ? '<p class="context">' + richText(e.context) + '</p>' : '';
     return '<article class="entry mode-' + mode + '">'
-      + '<h1 class="question">' + esc(e.question) + '</h1>'
-      + '<blockquote class="quote"><p>' + esc(e.quote) + '</p></blockquote>'
+      + '<h1 class="question">' + richText(e.question) + '</h1>'
+      + '<blockquote class="quote"><p>' + richText(e.quote) + '</p></blockquote>'
       + ctx
       + '<p class="source">' + src + '</p>'
       + '</article>';
