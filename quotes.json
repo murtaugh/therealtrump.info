@@ -479,8 +479,8 @@
   {
     "id": "press-enemy-of-the-people",
     "question": "How does Trump view the free press?",
-    "quote": "The FAKE NEWS media ... is not my enemy, <strong>it is the enemy of the American People</strong>!",
-    "context": "Posted on Twitter on Feb. 17, 2017 — naming The New York Times, NBC, ABC, CBS and CNN — the day after a combative White House press conference. He has repeated the phrase hundreds of times since.",
+    "quote": "It is the enemy of the American People!",
+    "context": "Posted on Twitter on Feb. 17, 2017, naming The New York Times, NBC, ABC, CBS and CNN, the day after a combative White House press conference. He has repeated the phrase hundreds of times since.",
     "source_url": "https://www.npr.org/2017/02/17/515630467/with-fake-news-trump-moves-from-alternative-facts-to-alternative-language",
     "source_name": "NPR",
     "date": "2017-02-17",
@@ -497,7 +497,7 @@
   {
     "id": "immigration-muslim-shutdown",
     "question": "What did Trump propose for Muslims entering the U.S.?",
-    "quote": "Donald J. Trump is calling for a <strong>total and complete shutdown of Muslims entering the United States</strong> until our country's representatives can figure out what is going on.",
+    "quote": "Donald J. Trump is calling for a <strong>total and complete shutdown of Muslims entering the United States</strong>.",
     "context": "A campaign statement issued Dec. 7, 2015, days after the San Bernardino shooting, and read aloud at a rally in Mount Pleasant, SC. Asked whether the ban would include U.S.-citizen Muslims abroad, his campaign said, \"Everyone.\"",
     "source_url": "https://www.presidency.ucsb.edu/documents/statement-donald-j-trump-statement-preventing-muslim-immigration",
     "source_name": "The American Presidency Project",
@@ -514,7 +514,7 @@
   },
   {
     "id": "congresswomen-go-back",
-    "question": "Does Tump respect the elected women and immigrants in office?",
+    "question": "Does Tump respect the women of color and immigrants elected to office?",
     "quote": "Why don't they <strong>go back</strong> and help fix the totally broken and crime infested places from which they came.",
     "context": "Posted on Twitter on July 14, 2019, about four Democratic congresswomen of color known as \"the Squad.\" He doubled down after the tweets were widely condemned as racist.",
     "source_url": "https://www.npr.org/2019/07/14/741630889/congresswomen-denounce-trump-tweets-telling-them-to-go-back-to-their-home-countr",
@@ -542,7 +542,7 @@
     "emphasis": "quote",
     "note": {
       "label": "Worth noting",
-      "text": "Historians flagged the novelty of a nominee presenting himself as the country's sole savior. The Atlantic's Yoni Appelbaum asked whether any American leader had ever claimed so directly to be the nation's \"sole hope for redemption.\"",
+      "text": "Historians flagged the novelty of a nominee presenting himself as the country's sole savior.",
       "source_url": "https://www.csmonitor.com/USA/Politics/Decoder/2016/0722/Trump-to-America-I-alone-can-fix-it",
       "source_name": "The Christian Science Monitor",
       "date": "2016-07-22"
@@ -551,7 +551,7 @@
   {
     "id": "jan6-fight-like-hell",
     "question": "What did Trump tell the crowd before January 6?",
-    "quote": "We fight like hell. And <strong>if you don't fight like hell, you're not going to have a country anymore.</strong>",
+    "quote": "We fight like hell. And if you don't fight like hell, <strong>you're not going to have a country</strong> anymore.",
     "context": "From his speech at the Ellipse on Jan. 6, 2021, shortly before his supporters marched on the Capitol, as he repeated false claims that the 2020 election had been stolen.",
     "source_url": "https://www.npr.org/2021/02/10/966396848/read-trumps-jan-6-speech-a-key-part-of-impeachment-trial",
     "source_name": "NPR",
@@ -575,13 +575,33 @@
     "source_name": "FactCheck.org",
     "date": "2020-04-24",
     "tags": ["covid"],
-    "emphasis": "quote",
+    "emphasis": "question",
     "note": {
       "label": "In context",
-      "text": "Fact-checkers stress that Trump did not literally instruct anyone to inject disinfectant, and he called it a \"sarcastic\" question the next day — though FactCheck.org and others found no sarcasm in the transcript.",
+      "text": "Fact-checkers stress that Trump did not literally instruct anyone to inject disinfectant, and he called it a \"sarcastic\" question the next day, though FactCheck.org and others found no sarcasm in the transcript.",
       "source_url": "https://www.factcheck.org/2020/04/the-white-house-spins-trumps-disinfectant-remarks/",
       "source_name": "FactCheck.org",
       "date": "2020-04-24"
+    }
+  },
+  {
+    "id": "epstein-terrific-guy",
+    "question": "How well did Trump know Jeffrey Epstein?",
+    "quote": "I've known Jeff for fifteen years. Terrific guy. He's a lot of fun to be with. It is even said that <strong>he likes beautiful women as much as I do</strong>, and many of them are on the younger side.",
+    "context": "Quoted in a New York magazine profile of Jeffrey Epstein, \"International Moneyman of Mystery,\" published Oct. 28, 2002.",
+    "source_url": "https://nymag.com/nymetro/news/people/n_7912/",
+    "source_name": "New York Magazine",
+    "date": "2002-10-28",
+    "tags": [
+      "epstein"
+    ],
+    "emphasis": "quote",
+    "note": {
+      "label": "Since then",
+      "text": "Trump made the remark in 2002, years before Epstein was convicted as a sex offender. After Epstein's 2019 arrest on charges of trafficking underage girls, Trump distanced himself, saying he \"wasn't a fan\" and hadn't spoken to Epstein in about 15 years.",
+      "source_url": "https://abcnews.com/Politics/trumps-comments-epstein-raise-new-questions-fell/story?id=124211483",
+      "source_name": "ABC News",
+      "date": "2025-07-31"
     }
   }
 ]
