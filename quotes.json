@@ -163,5 +163,24 @@
     "date": "2018-03-03",
     "tags": ["foreign-policy"],
     "emphasis": "question"
+  },
+  {
+    "id": "midterms-2026",
+    "question": "Is Trump looking forward to the 2026 midterm elections?",
+    "quote": "When you think of it, we shouldn't even have an election.",
+    "context": "Said in a January 2026 Oval Office interview with Reuters, while complaining that the president's party usually loses seats in the midterms.",
+    "source_url": "",
+    "source_name": "Reuters",
+    "date": "2026-01-14",
+    "tags": ["elections"],
+    "emphasis": "quote",
+    "note": {
+      "label": "Said in jest?",
+      "text": "The White House said Trump was \"speaking facetiously.\" It was not the first time he'd raised it: days earlier he told House Republicans \"they should cancel the election,\" and in 2025, told that Ukraine bars elections during wartime, he mused, \"if we happen to be in a war with somebody, no more elections? Oh, that's good.\"",
+      "source_url": "https://time.com/7343696/trump-floats-cancelling-2026-elections/",
+      "source_name": "TIME",
+      "date": "2026-01-15"
+    }
   }
+}
 ]
